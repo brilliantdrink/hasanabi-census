@@ -1,0 +1,87 @@
+.slider {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  .container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arrow {
+    $size: 5rem;
+    position: absolute;
+    top: calc(50% - #{$size} / 2);
+
+    height: $size;
+    width: $size;
+
+    appearance: none;
+    border: none;
+    background-color: transparent;
+
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-image: url('../../images/arrow.svg');
+    background-size: $size * .9;
+    background-position: center;
+
+    font-size: 0;
+
+    $hover-scale: scale(1.1);
+    $margin: 2rem;
+
+    transition: transform .2s ease;
+    cursor: pointer;
+
+    &.hide {
+      display: none;
+    }
+
+    &.next {
+      right: $margin;
+      $transform: rotate(-60deg);
+      transform: $transform;
+
+      &:hover {
+        transform: $transform $hover-scale;
+      }
+    }
+
+    &.prev {
+      left: $margin;
+      $transform: rotateZ(60deg) rotateY(180deg);
+      transform: $transform;
+
+      &:hover {
+        transform: $transform $hover-scale;
+      }
+    }
+  }
+
+  .nav {
+    position: absolute;
+    bottom: 1rem;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    .item {
+      cursor: pointer;
+    }
+  }
+}

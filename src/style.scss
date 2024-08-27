@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Luckiest Guy';
+  src: url('./fonts/luckiestguy-regular-webfont.woff2') format('woff2'),
+  url('./fonts/luckiestguy-regular-webfont.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Patrick Hand';
+  src: url('./fonts/patrickhand-regular-webfont.woff2') format('woff2'),
+  url('./fonts/patrickhand-regular-webfont.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body, #app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+
+  font-family: 'Patrick Hand', sans-serif;
+  font-size: 22px;
+
+  background-color: #333;
+  color: #ddd;
+}
