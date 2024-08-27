@@ -65,7 +65,7 @@ const config = {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The HasanAbi Census</title>
-    <script src="/index.js" defer></script>
+    <script src="index.js" defer></script>
     <style>${css}</style>
 </head>
 <body>
