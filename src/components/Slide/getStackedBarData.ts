@@ -15,7 +15,7 @@ export default async function getStackedBarData(url: string) {
       return {
         label,
         data: groupData.map(Number),
-        backgroundColor: colors[index],
+        backgroundColor: colors[index] ?? null,
       }
     }))
   }

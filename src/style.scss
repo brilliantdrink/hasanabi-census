@@ -1,18 +1,36 @@
 @font-face {
-  font-family: 'Luckiest Guy';
-  src: url('./fonts/luckiestguy-regular-webfont.woff2') format('woff2'),
-  url('./fonts/luckiestguy-regular-webfont.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family: 'Baskerville';
+  src: url('./fonts/baskervville-regular-webfont.woff2') format('woff2'),
+  url('./fonts/baskervville-regular-webfont.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Patrick Hand';
-  src: url('./fonts/patrickhand-regular-webfont.woff2') format('woff2'),
-  url('./fonts/patrickhand-regular-webfont.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family: 'Baskerville';
+  src: url('./fonts/baskervville-italic-webfont.woff2') format('woff2'),
+  url('./fonts/baskervville-italic-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/Archivo_SemiExpanded-Medium.woff2') format('woff2'),
+  url('./fonts/Archivo_SemiExpanded-Medium.ttf') format('truetype');
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./fonts/Archivo_SemiExpanded-MediumItalic.woff2') format('woff2'),
+  url('./fonts/Archivo_SemiExpanded-MediumItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -21,9 +39,9 @@ html, body, #app {
   width: 100%;
   margin: 0;
 
-  font-family: 'Patrick Hand', sans-serif;
+  font-family: 'Archivo', sans-serif;
   font-size: 22px;
 
-  background-color: #333;
+  background-color: #111;
   color: #ddd;
 }

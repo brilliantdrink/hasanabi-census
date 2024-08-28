@@ -1,7 +1,8 @@
 import {ChartOptions, Plugin} from 'chart.js'
+import {originalDatasets} from './utils'
 
 const font = {
-  family: 'Patrick Hand',
+  family: 'Baskerville',
   size: 16,
 }
 
@@ -12,8 +13,9 @@ export const common: ChartOptions = {
     tooltip: {
       callbacks: {
         label: tooltipItem => {
+          const totalAmount =  originalDatasets[tooltipItem.dataset.label as string].data[tooltipItem.dataIndex]
           const percentage = (tooltipItem.raw as number * 100).toFixed(2) + '%'
-          return tooltipItem.dataset.label + ': ' + percentage
+          return `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
         }
       },
       titleFont: font,
@@ -23,9 +25,17 @@ export const common: ChartOptions = {
     datalabels: {
       anchor: 'center',
       align: 'center',
+      textAlign: 'center',
       color: 'black',
       font,
-      formatter: value => Math.round(Number(value) * 100 * 100) / 100 + '%'
+      formatter: (value, context) => {
+        const totalAmount = originalDatasets[context.dataset.label as string].data[context.dataIndex]
+        const percentage = Math.round(Number(value) * 100 * 100) / 100 + '%'
+        if (!value || value === 0) return ''
+        else if (value < .05) return percentage
+        else if (value < .10) return context.dataset.label + '\n' + percentage
+        else return context.dataset.label + '\n' + percentage + '\n' + totalAmount
+      }
     }
   }
 }
