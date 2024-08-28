@@ -1,7 +1,7 @@
 import {createSignal, onMount} from 'solid-js'
 import createEmblaCarousel from 'embla-carousel-solid'
 import {default as cn} from 'classnames'
-import {AgeSlide, GenderSlide, HomeSlide, PoliticsSlide} from '../Slide'
+import {HomeSlide} from '../Slide'
 
 import styles from './slider.module.scss'
 
