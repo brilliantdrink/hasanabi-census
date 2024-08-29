@@ -9,26 +9,26 @@
   justify-content: center;
   align-items: center;
 
-  h1 {
-    font-family: 'Luckiest Guy', sans-serif;
-    font-size: 5rem;
-    //letter-spacing: .1ch;
-    color: transparent;
+  font-size: 18px;
 
-    background: url('../../images/title.svg') center / contain;
+  > * {
+    margin: 0;
   }
 
-  p, h1 {
+  &.home > * {
     margin: .5rem 0;
   }
 
-  h1 {
-
-    margin-top: 2rem;
+  h1, h2, h3 {
+    font-family: 'Archivo', sans-serif;
   }
 
-  &.home p {
-    font-family: 'Baskerville', serif;
+  h1 {
+    margin-top: 2rem;
+    font-size: 5rem;
+    color: transparent;
+
+    background: url('../../images/title.svg') center / contain no-repeat;
   }
 
   .signature {
@@ -38,5 +38,17 @@
     font-size: .8rem;
     text-align: right;
     color: white;
+  }
+
+  .inlineIcon {
+    height: 1.4em;
+    vertical-align: middle;
+
+    position: relative;
+    bottom: .2em;
+  }
+
+  canvas {
+    margin-top: 1rem;
   }
 }

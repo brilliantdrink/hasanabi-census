@@ -2,7 +2,7 @@ import {ChartOptions, Plugin} from 'chart.js'
 import {originalDatasets} from './utils'
 
 const font = {
-  family: 'Libre Baskerville',
+  family: 'Fraunces',
   size: 15,
 }
 
@@ -71,7 +71,7 @@ const legendSpacingPlugin: Plugin = {
     const originalFit = chart.legend.fit
     chart.legend.fit = function fit() {
       originalFit.bind(chart.legend)()
-      this.height += 25
+      this.height += 15
     }
   },
 }

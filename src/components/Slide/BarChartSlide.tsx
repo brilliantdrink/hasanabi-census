@@ -1,14 +1,14 @@
-import {createSignal, onMount} from 'solid-js'
+import {createSignal, JSX, onMount} from 'solid-js'
 import {Bar} from 'solid-chartjs'
-import {Chart, ChartData, Colors, Legend, LinearScale, plugins, Title, Tooltip} from 'chart.js'
+import {Chart, ChartData, Colors, Legend, LinearScale, Title, Tooltip} from 'chart.js'
 import DataLabels from 'chartjs-plugin-datalabels'
 
 import styles from './slide.module.scss'
-import {stackedBarChart} from './options'
+import {plugins, stackedBarChart} from './options'
 import getStackedBarData from './getStackedBarData'
 import {colorsHeight} from './colors'
 
-export default function BarChartSlide({dataFile, title}: { dataFile: string, title: string }) {
+export default function BarChartSlide({dataFile, title, note}: { dataFile: string, title: string, note?: string | JSX.Element }) {
   const [data, setData] = createSignal<ChartData>(null!)
 
   onMount(() => {
@@ -32,7 +32,8 @@ export default function BarChartSlide({dataFile, title}: { dataFile: string, tit
   return <>
     <div class={styles.slide}>
       <h2>{title}</h2>
-      <Bar data={data()} options={stackedBarChart} plugins={plugins}
+      {note && <p>{note}</p>}
+      <Bar class={styles.chart} data={data()} options={stackedBarChart} plugins={plugins}
            height={window.innerHeight * .8 - 22 * 2} width={window.innerWidth * .6} />
     </div>
   </>

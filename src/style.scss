@@ -1,28 +1,18 @@
 @font-face {
-  font-family: 'Baskerville';
-  src: url('./fonts/baskervville-regular-webfont.woff2') format('woff2'),
-  url('./fonts/baskervville-regular-webfont.ttf') format('truetype');
+  font-family: 'Fraunces';
+  src: url('./fonts/Fraunces_9pt-Regular.woff2') format('woff2'),
+  url('./fonts/Fraunces_9pt-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Baskerville';
-  src: url('./fonts/baskervville-italic-webfont.woff2') format('woff2'),
-  url('./fonts/baskervville-italic-webfont.ttf') format('truetype');
+  font-family: 'Fraunces';
+  src: url('./fonts/Fraunces_9pt-Italic.woff2') format('woff2'),
+  url('./fonts/Fraunces_9pt-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
-}
-
-
-@font-face {
-  font-family: 'Libre Baskerville';
-  src: url('./fonts/librebaskerville-regular-webfont.woff2') format('woff2'),
-  url('./fonts/librebaskerville-regular-webfont.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
   font-display: swap;
 }
 
@@ -49,7 +39,7 @@ html, body, #app {
   width: 100%;
   margin: 0;
 
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Fraunces', serif;
   font-size: 22px;
 
   background-color: #111;

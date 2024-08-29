@@ -1,32 +1,13 @@
 import {createSignal, onMount} from 'solid-js'
 import createEmblaCarousel from 'embla-carousel-solid'
 import {default as cn} from 'classnames'
+import {BsBoxArrowInLeft, BsBoxArrowInRight} from 'solid-icons/bs'
 import {HomeSlide} from '../Slide'
 
 import styles from './slider.module.scss'
 
-import ageFile from "../../data/age.csv"
-import genderFile from "../../data/gender.csv"
-import politicsFile from "../../data/politics.csv"
-import raceFile from "../../data/race.csv"
-import religionFile from "../../data/religion.csv"
-import sexualityFile from "../../data/sexuality.csv"
-import heightFile from "../../data/height.csv"
-import transFile from "../../data/trans.csv"
-import locationFile from "../../data/location.csv"
-import salaryFile from "../../data/salary.csv"
-import educationFile from "../../data/education.csv"
-import sexHaversFile from "../../data/sex-havers.csv"
-import weebFile from "../../data/weeb.csv"
-import eatingFile from "../../data/eating.csv"
-import neurodivergenceFile from "../../data/neurodivergence.csv"
 import BarChartSlide from '../Slide/BarChartSlide'
-import {BsBoxArrowInLeft, BsBoxArrowInRight} from 'solid-icons/bs'
-
-const barChartSlides = ['Age', 'Gender', 'Political Ideology', 'Ethnicity', 'Religion', 'Sexuality', 'Height',
-  'Trans Chatters', 'Location', 'Salary', 'Education', 'VCARD', 'Weebs', 'Eating', 'Neurodiversity']
-const barChartSlideFiles = [ageFile, genderFile, politicsFile, raceFile, religionFile, sexualityFile, heightFile,
-  transFile, locationFile, salaryFile, educationFile, sexHaversFile, weebFile, eatingFile, neurodivergenceFile]
+import {barChartSlides} from '../Slide/slideData'
 
 export default function Slider() {
   const [emblaRef, emblaApi] = createEmblaCarousel()
@@ -57,12 +38,9 @@ export default function Slider() {
     <div class={styles.slider} ref={emblaRef}>
       <div class={styles.container}>
         <div class={styles.slide}><HomeSlide /></div>
-        {barChartSlideFiles.map((file, index) => (
+        {barChartSlides.map(({name, fileUrl, note}, index) => (
           <div class={styles.slide}>
-            {file
-              ? <BarChartSlide dataFile={file} title={barChartSlides[index]} />
-              : 'Strimmer did a Danki'
-            }
+            <BarChartSlide dataFile={fileUrl} title={name} note={note} />
           </div>
         ))}
       </div>
@@ -75,7 +53,7 @@ export default function Slider() {
         <BsBoxArrowInLeft />
       </button>
       <nav class={styles.nav}>
-        {['Cover', ...barChartSlides].map((slide, index) => <>
+        {[{name: 'Cover'}, ...barChartSlides].map(({name: slide}, index) => <>
           <span class={cn(styles.item, slideIndex() === index && styles.selected)}
                 onclick={() => emblaApi()?.scrollTo(index)}>
             {slide}
