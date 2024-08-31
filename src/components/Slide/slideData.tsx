@@ -15,6 +15,7 @@ import sexHaversFile from "../../data/sex-havers.csv"
 import weebFile from "../../data/weeb.csv"
 import eatingFile from "../../data/eating.csv"
 import neurodivergenceFile from "../../data/neurodivergence.csv"
+import gamingFile from "../../data/gaming.csv"
 
 import styles from './slide.module.scss'
 
@@ -72,4 +73,7 @@ export const barChartSlides: SlideData[] = [{
 }, {
   name: 'Neurodiversity',
   fileUrl: neurodivergenceFile,
+}, {
+  name: 'Gayming Frogs',
+  fileUrl: gamingFile,
 }]
