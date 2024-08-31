@@ -15,7 +15,7 @@ export default function BarChartSlide({dataFile, title, note}: { dataFile: strin
     Chart.register(Title, Tooltip, Legend, Colors, DataLabels, LinearScale)
     // PogO hardcoded
     if (title === 'Height') {
-      getStackedBarData(dataFile)
+      getStackedBarData(dataFile, title)
         .then(data => {
           let i = 0
           for (const dataset of data.datasets) {
@@ -25,7 +25,7 @@ export default function BarChartSlide({dataFile, title, note}: { dataFile: strin
         })
         .then(setData)
     } else {
-      getStackedBarData(dataFile).then(setData)
+      getStackedBarData(dataFile, title).then(setData)
     }
   })
 
@@ -33,7 +33,7 @@ export default function BarChartSlide({dataFile, title, note}: { dataFile: strin
     <div class={styles.slide}>
       <h2>{title}</h2>
       {note && <p>{note}</p>}
-      <Bar class={styles.chart} data={data()} options={stackedBarChart} plugins={plugins}
+      <Bar class={styles.chart} data={data()} options={stackedBarChart(title)} plugins={plugins}
            height={window.innerHeight * .8 - 22 * 2} width={window.innerWidth * .6} />
     </div>
   </>

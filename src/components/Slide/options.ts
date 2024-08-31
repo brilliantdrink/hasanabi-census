@@ -6,7 +6,7 @@ const font = {
   size: 15,
 }
 
-export const common: ChartOptions = {
+export const common = (id: string): ChartOptions => ({
   responsive: true,
   // maintainAspectRatio: false,
   plugins: {
@@ -15,7 +15,7 @@ export const common: ChartOptions = {
       yAlign: 'center',
       callbacks: {
         label: tooltipItem => {
-          const totalAmount = originalDatasets[tooltipItem.dataset.label as string].data[tooltipItem.dataIndex]
+          const totalAmount = originalDatasets[id][tooltipItem.dataset.label as string].data[tooltipItem.dataIndex]
           const percentage = (tooltipItem.raw as number * 100).toFixed(2) + '%'
           return `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
         }
@@ -31,7 +31,7 @@ export const common: ChartOptions = {
       color: 'black',
       font,
       formatter: (value, context) => {
-        const totalAmount = originalDatasets[context.dataset.label as string].data[context.dataIndex]
+        const totalAmount = originalDatasets[id][context.dataset.label as string].data[context.dataIndex]
         let label = context.dataset.label as string
         if (label.length > 20) {
           const insertIndex = label.indexOf('/') + 1
@@ -45,10 +45,10 @@ export const common: ChartOptions = {
       }
     }
   }
-}
+})
 
-export const stackedBarChart: ChartOptions = {
-  ...common,
+export const stackedBarChart = (id: string): ChartOptions => ({
+  ...common(id),
   scales: {
     x: {
       stacked: true,
@@ -62,7 +62,7 @@ export const stackedBarChart: ChartOptions = {
       }
     }
   },
-}
+})
 
 const legendSpacingPlugin: Plugin = {
   id: 'legendSpacingPlugin',

@@ -6,12 +6,13 @@ export function normaliseArray(array: number[]) {
   return array.map(number => number / sum)
 }
 
-export const originalDatasets: Record<string, ChartDataset> = {}
+export const originalDatasets: Record<string, Record<string, ChartDataset>> = {}
 
-export function normalizeChartDataY(data: ChartData['datasets']) {
+export function normalizeChartDataY(data: ChartData['datasets'], id: string) {
   const yAxis: number[][] = Array(data[0].data.length).fill(0).map(() => [])
   for (const set of data) {
-    originalDatasets[set.label as string] = cloneDeep(set)
+    originalDatasets[id] ??= {}
+    originalDatasets[id][set.label as string] = cloneDeep(set)
     set.data.forEach((number, i) => yAxis[i].push(number as number))
   }
   yAxis.map((numbers, x) => {
