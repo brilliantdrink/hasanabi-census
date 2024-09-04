@@ -10,18 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install Deps
-        run: npm i
-      - name: Build
-        run: npm run build
+        uses: actions/checkout@v4
       - name: Set up git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Install Deps
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Switch branch
+        uses: actions/checkout@v4
+        with:
+          ref: build
       - name: Push
         run: |
-          git switch build
           git add docs
           git commit -m "${{ github.event.head_commit.message }}"
           git push origin build
