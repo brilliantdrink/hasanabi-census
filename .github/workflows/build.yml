@@ -1,0 +1,27 @@
+name: Build and push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Deps
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Set up git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Push
+        run: |
+          git checkout -b build
+          git add docs
+          git commit -m "${{ github.event.head_commit.message }}"
+          git push origin build
