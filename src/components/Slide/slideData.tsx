@@ -68,7 +68,7 @@ export const barChartSlides: SlideData[] = [{
   name: 'Weebs',
   fileUrl: weebFile,
 }, {
-  name: 'Eating',
+  name: 'Diet',
   fileUrl: eatingFile,
 }, {
   name: 'Neurodiversity',
