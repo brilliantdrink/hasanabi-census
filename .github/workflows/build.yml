@@ -22,16 +22,14 @@ jobs:
           cd main
           npm i
           npm run build
-      - name: Copy to Build Branch
-        run: |
           cp -R docs ../build/docs
-          cd ../build
       - name: Set up git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Push
         run: |
+          cd build
           git add docs
           git commit -m "${{ github.event.head_commit.message }}"
           git push origin build
