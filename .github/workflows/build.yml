@@ -23,6 +23,7 @@ jobs:
           cd main
           npm i
           npm run build
+          rm -r ../build/docs/*
           cp -R docs ../build
       - name: Push
         run: |
