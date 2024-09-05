@@ -21,7 +21,7 @@ jobs:
         run: npm run build
       - name: Push
         run: |
-          git fetch -all
+          git fetch --all
           git checkout build
           git add docs
           git commit -m "${{ github.event.head_commit.message }}"
