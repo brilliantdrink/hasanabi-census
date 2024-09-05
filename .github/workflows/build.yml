@@ -9,20 +9,28 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Build Branch
         uses: actions/checkout@v4
-      - name: Set up git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        with:
+          path: build
+      - name: Checkout Main Branch
+        uses: actions/checkout@v4
+        with:
+          path: main
       - name: Install Deps
         run: npm i
       - name: Build
         run: npm run build
+      - name: Copy to Build Branch
+        run: |
+          cp -R docs ../build/docs
+          cd ../build
+      - name: Set up git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Push
         run: |
-          git fetch --all
-          git checkout build
           git add docs
           git commit -m "${{ github.event.head_commit.message }}"
           git push origin build
