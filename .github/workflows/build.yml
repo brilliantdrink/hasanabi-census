@@ -19,12 +19,10 @@ jobs:
         run: npm i
       - name: Build
         run: npm run build
-      - name: Switch branch
-        uses: actions/checkout@v4
-        with:
-          ref: build
       - name: Push
         run: |
+          git fetch -all
+          git checkout build
           git add docs
           git commit -m "${{ github.event.head_commit.message }}"
           git push origin build
