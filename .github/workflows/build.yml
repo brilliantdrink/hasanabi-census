@@ -16,6 +16,7 @@ jobs:
       - name: Checkout Build Branch
         uses: actions/checkout@v4
         with:
+          ref: build
           path: build
       - name: Install and Build
         run: |
