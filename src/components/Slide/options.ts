@@ -1,6 +1,24 @@
 import type {ChartOptions, Plugin} from 'chart.js'
 import {originalDatasets} from './utils'
 
+const deltaAt = (data: unknown[], index: number): number | null => {
+  if (index <= 0) return null
+  const arr = data as number[]
+  const cur = arr[index]
+  const prev = arr[index - 1]
+  if (typeof cur !== 'number' || typeof prev !== 'number') return null
+  return cur - prev
+}
+
+const formatDelta = (delta: number | null | undefined, decimals: 0 | 1): string | null => {
+  // ignore anything smaller than +-0.5% 
+  if (delta == null || Math.abs(delta) < 0.005) return null
+  const absPercent = Math.abs(delta) * 100
+  const formatted = decimals === 0 ? String(Math.round(absPercent)) : String(Math.round(absPercent * 10) / 10)
+  const sign = delta > 0 ? '+' : '-'
+  return `${sign}${formatted}%`
+}
+
 const font = {
   family: 'Fraunces',
   size: 15,
@@ -17,7 +35,12 @@ export const common = (id: string, tiny: boolean): ChartOptions => ({
         label: tooltipItem => {
           const totalAmount = originalDatasets[id][tooltipItem.dataset.label as string].data[tooltipItem.dataIndex]
           const percentage = (tooltipItem.raw as number * 100).toFixed(2) + '%'
-          return `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
+          const base = `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
+          const datasetData = (tooltipItem.dataset as unknown as {data: unknown[]}).data
+          const delta = deltaAt(datasetData, tooltipItem.dataIndex)
+          const deltaStr = formatDelta(delta, 1)
+          if (deltaStr) return `${base} ${deltaStr} vs prev`
+          return base
         }
       },
       titleFont: font,
@@ -48,10 +71,16 @@ export const common = (id: string, tiny: boolean): ChartOptions => ({
           ? Math.round(Number(value) * 100)
           : Math.round(Number(value) * 100 * 100) / 100
         const percentage = roundedPercentageValue + '%'
+        const datasetData = (context.dataset.data as unknown[]) as unknown[]
+        const delta = deltaAt(datasetData, context.dataIndex as number)
+        const minValueForDelta = tiny ? 0.10 : 0.06
+        const deltaStr = value >= minValueForDelta ? formatDelta(delta, tiny ? 0 : 1) : null
+        const pctWithDelta = deltaStr ? `${percentage}\n${deltaStr}` : percentage
         if (!value || value < .01) return ''
-        else if (tiny || value < .05) return percentage
-        else if (value < .10) return label + '\n' + percentage
-        else return label + '\n' + percentage + '\n' + totalAmount
+        else if (tiny) return pctWithDelta
+        else if (value < .05) return percentage
+        else if (value < .10) return label + '\n' + pctWithDelta
+        else return label + '\n' + pctWithDelta + '\n' + totalAmount
       }
     }
   }
