@@ -10,9 +10,8 @@ const deltaAt = (data: unknown[], index: number): number | null => {
   return cur - prev
 }
 
-const formatDelta = (delta: number | null | undefined, decimals: 0 | 1): string | null => {
-  // ignore anything smaller than +-0.5% 
-  if (delta == null || Math.abs(delta) < 0.005) return null
+const formatDelta = (delta: number | null | undefined, decimals: 0 | 1): string | null => { 
+  if (delta == null) return null
   const absPercent = Math.abs(delta) * 100
   const formatted = decimals === 0 ? String(Math.round(absPercent)) : String(Math.round(absPercent * 10) / 10)
   const sign = delta > 0 ? '+' : '-'
