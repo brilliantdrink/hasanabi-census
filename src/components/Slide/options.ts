@@ -1,6 +1,23 @@
 import type {ChartOptions, Plugin} from 'chart.js'
 import {originalDatasets} from './utils'
 
+const deltaAt = (data: unknown[], index: number): number | null => {
+  if (index <= 0) return null
+  const arr = data as number[]
+  const cur = arr[index]
+  const prev = arr[index - 1]
+  if (typeof cur !== 'number' || typeof prev !== 'number') return null
+  return cur - prev
+}
+
+const formatDelta = (delta: number | null | undefined, decimals: 0 | 1): string | null => { 
+  if (delta == null) return null
+  const absPercent = Math.abs(delta) * 100
+  const formatted = decimals === 0 ? String(Math.round(absPercent)) : String(Math.round(absPercent * 10) / 10)
+  const sign = delta > 0 ? '+' : '-'
+  return `${sign}${formatted}%`
+}
+
 const font = {
   family: 'Fraunces',
   size: 15,
@@ -17,7 +34,12 @@ export const common = (id: string, tiny: boolean): ChartOptions => ({
         label: tooltipItem => {
           const totalAmount = originalDatasets[id][tooltipItem.dataset.label as string].data[tooltipItem.dataIndex]
           const percentage = (tooltipItem.raw as number * 100).toFixed(2) + '%'
-          return `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
+          const base = `${tooltipItem.dataset.label}: ${percentage} (${totalAmount})`
+          const datasetData = (tooltipItem.dataset as unknown as {data: unknown[]}).data
+          const delta = deltaAt(datasetData, tooltipItem.dataIndex)
+          const deltaStr = formatDelta(delta, 1)
+          if (deltaStr) return `${base} ${deltaStr} vs prev`
+          return base
         }
       },
       titleFont: font,
