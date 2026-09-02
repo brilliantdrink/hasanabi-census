@@ -70,16 +70,10 @@ export const common = (id: string, tiny: boolean): ChartOptions => ({
           ? Math.round(Number(value) * 100)
           : Math.round(Number(value) * 100 * 100) / 100
         const percentage = roundedPercentageValue + '%'
-        const datasetData = (context.dataset.data as unknown[]) as unknown[]
-        const delta = deltaAt(datasetData, context.dataIndex as number)
-        const minValueForDelta = tiny ? 0.10 : 0.06
-        const deltaStr = value >= minValueForDelta ? formatDelta(delta, tiny ? 0 : 1) : null
-        const pctWithDelta = deltaStr ? `${percentage}\n${deltaStr}` : percentage
         if (!value || value < .01) return ''
-        else if (tiny) return pctWithDelta
-        else if (value < .05) return percentage
-        else if (value < .10) return label + '\n' + pctWithDelta
-        else return label + '\n' + pctWithDelta + '\n' + totalAmount
+        else if (tiny || value < .05) return percentage
+        else if (value < .10) return label + '\n' + percentage
+        else return label + '\n' + percentage + '\n' + totalAmount
       }
     }
   }
